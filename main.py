@@ -2,6 +2,15 @@ import sys
 from roles import RolesPreset
 from config import Settings
 from chat_service import ChattService
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Esto debe ir antes de importar Settings
+
+from config import Settings
+from chat_service import ChattService
+
+print(f"API KEY cargada: {Settings.api_key}")
 
 def chose_roles() -> RolesPreset:
     print("Elegi un rol")
@@ -9,24 +18,23 @@ def chose_roles() -> RolesPreset:
     
     sel = input("Selecciona una opcion (1-4): ")
     
-    mappding = {
+    mapping = {
         "1": RolesPreset.PROFESOR,
         "2": RolesPreset.TRADUCTOR,
         "3": RolesPreset.PROGRAMADOR,
         "4": RolesPreset.ASISTENTE,
     } 
-    return mappding.get(sel, RolesPreset.ASISTENTE) #siempre por defecto es asistente
+    return mapping.get(sel, RolesPreset.ASISTENTE)
 
 def print_help():
     print("\nComandos disponibles:")
     print(":rol profesor|traductor|programador|asistente - Cambia el rol actual")
     print(":reset - Reinicia la conversación")
     print(":exit - Salir de la aplicación")
-    
+
 def main():
-    print("{Settings.system_name}")
     role = chose_roles()
-    chat = ChattService(roles = role)
+    chat = ChattService(roles=role)
     print_help()
 
     while True:
@@ -38,10 +46,10 @@ def main():
         if not user_input:
             continue
 
-        if user_input.lower() == ":exit" or user_input.lower() == "salir":
+        if user_input.lower() in (":exit", "salir"):
             print("Saliendo...🦖🦖 ")
             break
-        if user_input.lower() == ":reset" or user_input.lower() == "reset":
+        if user_input.lower() in (":reset", "reset"):
             print("Conversacion reiniciada.")
             chat.reset()
             continue
@@ -59,7 +67,7 @@ def main():
             else:
                 print("Rol no reconocido. Usa profesor, traductor, programador o asistente.")
             continue
-        if user_input.lower() == ":ayuda" or user_input.lower() == "ayuda":
+        if user_input.lower() in (":ayuda", "ayuda"):
             print_help()
             continue
         try:
