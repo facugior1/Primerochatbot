@@ -1,4 +1,4 @@
-from typing import list, Dict
+from typing import List, Dict
 
 def build_system_prompt(role_instructions:str) -> str:
     base = (
