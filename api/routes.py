@@ -3,6 +3,7 @@ from api.schemas import ChatRequest, ChatResponse
 from chat_service import ChattService
 from roles import RolesPreset
 
+
 router = APIRouter()
 
 chat_service = ChattService(roles=RolesPreset.ASISTENTE)
