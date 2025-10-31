@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
+
 class ChatRequest(BaseModel):
-    mensaje = str
+    mensaje: str
+    reset: bool = False
     role: str = "asistente"
-    reset = bool = False
-    
-    class ChatResponse(BaseModel):
-        respuesta: str
-        
+
+class ChatResponse(BaseModel):
+    respuesta: str
